@@ -1,0 +1,33 @@
+@mixin styledText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-list {
+  .task-container {
+    margin: 12px 0;
+    height: 120px;
+
+    .task {
+      padding: 8px 12px;
+      height: 100%;
+      overflow: hidden;
+
+      h4 {
+        white-space: nowrap;
+        @include styledText();
+      }
+
+      span {
+        font-size: 14px;
+        color: #303030;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        @include styledText();
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL = 'https://github.com/LptLeo/PORTIFOLIO.git';
+const API_URL = 'https://portifolio-backend-production.up.railway.app/';
 
 export const getTasks = createAsyncThunk('tasks/getTasks', async () => {
   const res = await axios.get(API_URL);

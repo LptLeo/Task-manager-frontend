@@ -45,12 +45,16 @@ const tasksSlice = createSlice({
     status: 'idle',
     error: null,
     search: '',
+    filter: 'A-Z',
     selectingStats: false,
     selectedTasks: [],
   },
   reducers: {
     setSearch: (state, { payload }) => {
       state.search = payload;
+    },
+    setFilter: (state, { payload }) => {
+      state.filter = payload;
     },
     toggleSelectingStats: (state) => {
       state.selectingStats = !state.selectingStats;
@@ -61,12 +65,21 @@ const tasksSlice = createSlice({
       }
     },
     removeTask: (state, { payload }) => {
-      state.selectedTasks = state.selectedTasks.filter(
-        (task) => task._id === payload
-      );
+      state.selectedTasks = state.selectedTasks.map((task) => {
+        if (task !== payload && task !== undefined) {
+          return task;
+        }
+      });
     },
     clearSelectedTasks: (state) => {
       state.selectedTasks = [];
+    },
+    selectAllTasks: (state) => {
+      if (state.selectingStats) {
+        state.selectedTasks = state.tasksData.map((task) => task._id);
+      } else {
+        state.selectedTasks = [];
+      }
     },
   },
   extraReducers: (builder) => {
@@ -109,9 +122,11 @@ const tasksSlice = createSlice({
 
 export const {
   setSearch,
+  setFilter,
   toggleSelectingStats,
   addTask,
   removeTask,
   clearSelectedTasks,
+  selectAllTasks,
 } = tasksSlice.actions;
 export default tasksSlice.reducer;

@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   addTask,
   deleteTask,
   getTasks,
   removeTask,
-} from "../../redux/tasksSlice";
-import "./TaskList.scss";
-import { openModal, selectTask, setUpdating } from "../../redux/modalSlice";
+} from '../../redux/tasksSlice';
+import './TaskList.scss';
+import { openModal, selectTask, setUpdating } from '../../redux/modalSlice';
 
 const TaskList = () => {
   const dispatch = useDispatch();
@@ -15,24 +15,44 @@ const TaskList = () => {
   const search = useSelector((state) => state.tasks.search);
   const selecting = useSelector((state) => state.tasks.selectingStats);
   const selected = useSelector((state) => state.tasks.selectedTasks);
+  const filter = useSelector((state) => state.tasks.filter);
 
   useEffect(() => {
     dispatch(getTasks());
   }, [dispatch]);
 
-  const filteredTasks = tasksData.filter((task) =>
-    task.title.toLowerCase().includes(search.toLowerCase())
-  );
+  function handleFilterTasks() {
+    switch (filter) {
+      case 'Z-A':
+        return tasksData
+          .filter((task) => task.title.toLowerCase().includes(search))
+          .sort((a, b) => b.title.localeCompare(a.title));
+      case 'Mais-recentes':
+        return tasksData
+          .filter((task) => task.title.toLowerCase().includes(search))
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      case 'Menos-recentes':
+        return tasksData
+          .filter((task) => task.title.toLowerCase().includes(search))
+          .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      default:
+        return tasksData
+          .filter((task) =>
+            task.title.toLowerCase().includes(search.toLowerCase())
+          )
+          .sort((a, b) => a.title.localeCompare(b.title));
+    }
+  }
 
-  if (status === "loading") return <h4>Carregando...</h4>;
-  if (status === "failed") return <h4>Erro: {error}</h4>;
+  if (status === 'loading') return <h4>Carregando...</h4>;
+  if (status === 'failed') return <h4>Erro: {error}</h4>;
 
   return (
     <div className="task-list mt-3 text-black">
       {tasksData.length === 0 ? (
         <h4>Nenhuma tarefa encontrada</h4>
       ) : (
-        filteredTasks.map((task) => (
+        handleFilterTasks().map((task) => (
           <div key={task._id} className="task-container d-flex">
             <div className="task rounded-start-2 bg-light w-100">
               <h4>{task.title}</h4>

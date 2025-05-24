@@ -1,6 +1,7 @@
 .bg-container {
   .interface-container {
-    padding-top: 120px;
+    padding-top: 40px;
+    width: 100%;
 
     h1 {
       text-shadow: 5, 5, 1, #ffffff;
@@ -9,6 +10,68 @@
     .interface {
       padding: 16px 24px;
       background: linear-gradient(to bottom, #aaaaaa 60%, #dfdfdf);
+      width: 100%;
+
+      .toolbar {
+        display: flex;
+        gap: 8px;
+        flex-direction: column;
+
+        select,
+        .select-all {
+          min-width: 160px;
+          max-width: 20%;
+          padding: 2px 8px;
+          height: 38px;
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 481px) {
+  .bg-container {
+    .interface-container {
+      .interface {
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .bg-container {
+    .interface-container {
+      .interface {
+        width: 65%;
+      }
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .bg-container {
+    .interface-container {
+      padding-top: 80px;
+
+      .interface {
+        width: 60%;
+      }
+    }
+  }
+}
+
+@media (min-width: 1281px) {
+  .bg-container {
+    .interface-container {
+      .interface {
+        width: 50%;
+
+        .toolbar {
+          flex-direction: row;
+        }
+      }
     }
   }
 }

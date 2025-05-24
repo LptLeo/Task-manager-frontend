@@ -31,3 +31,31 @@
     }
   }
 }
+
+@media (min-width: 1200px) {
+  .task-list {
+    .task-container {
+      height: 160px;
+
+      .task {
+        padding: 16px 24px;
+        height: 100%;
+
+        h4 {
+          font-size: 20px;
+          margin: 0;
+        }
+
+        span {
+          font-size: 16px;
+          margin: 0;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          line-clamp: 4;
+          -webkit-box-orient: vertical;
+          @include styledText();
+        }
+      }
+    }
+  }
+}

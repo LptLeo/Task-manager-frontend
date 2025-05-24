@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import "./Modal.scss";
-import { closeModal, selectTask, setUpdating } from "../../redux/modalSlice";
-import { createTask, updateTask } from "../../redux/tasksSlice";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import './Modal.scss';
+import { closeModal, selectTask, setUpdating } from '../../redux/modalSlice';
+import { createTask, updateTask } from '../../redux/tasksSlice';
 
 const initialState = {
-  createdAt: "",
-  description: "",
-  title: "",
-  _id: "",
+  createdAt: '',
+  description: '',
+  title: '',
+  _id: '',
 };
 
 const Modal = () => {
@@ -22,10 +22,10 @@ const Modal = () => {
   useEffect(() => {
     if (modalStats) {
       setRegister({
-        createdAt: selectedTask.createdAt ?? "",
-        description: selectedTask.description ?? "",
-        title: selectedTask.title ?? "",
-        _id: selectedTask._id ?? "",
+        createdAt: selectedTask.createdAt ?? '',
+        description: selectedTask.description ?? '',
+        title: selectedTask.title ?? '',
+        _id: selectedTask._id ?? '',
       });
     } else {
       setRegister(initialState);
@@ -35,10 +35,10 @@ const Modal = () => {
   return (
     <>
       {modalStats && (
-        <div className="modal-overlay d-flex w-100 h-100 position-fixed bg-secondary bg-opacity-50">
-          <div className="add-modal w-25 bg-light rounded">
+        <div className="modal-overlay d-flex w-100 h-100 position-fixed bg-secondary bg-opacity-50 z-1">
+          <div className="add-modal bg-light rounded">
             <div className="top-modal d-flex justify-content-between border-bottom border-color-secondary py-1 px-2">
-              <h4 className="m-0 p-2">Título do Modal</h4>
+              <h4 className="m-0 p-2">{register.title || 'Nova tarefa'}</h4>
               <i
                 className="bi bi-x-lg"
                 onClick={() => {

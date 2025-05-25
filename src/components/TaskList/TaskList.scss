@@ -6,12 +6,34 @@
 .task-list {
   .task-container {
     margin: 12px 0;
-    height: 120px;
+    height: 140px;
+    max-height: 140px;
 
     .task {
       padding: 8px 12px;
       height: 100%;
       overflow: hidden;
+
+      &-description {
+        flex: 1;
+      }
+
+      &-date {
+        span {
+          color: #a0a0a0 !important;
+          font-size: 10px !important;
+          max-width: 100px;
+          margin-bottom: -8px;
+
+          &:first-child {
+            text-align: left;
+          }
+
+          &:last-child {
+            text-align: right;
+          }
+        }
+      }
 
       h4 {
         white-space: nowrap;
@@ -44,6 +66,23 @@
         h4 {
           font-size: 20px;
           margin: 0;
+        }
+
+        &-date {
+          span {
+            color: #a0a0a0 !important;
+            font-size: 10px !important;
+            max-width: 100px;
+            margin-bottom: -8px;
+
+            &:first-child {
+              text-align: left;
+            }
+
+            &:last-child {
+              text-align: right;
+            }
+          }
         }
 
         span {

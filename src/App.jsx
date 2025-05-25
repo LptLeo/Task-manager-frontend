@@ -110,7 +110,7 @@ function App() {
                   <select
                     className="form-select mx-1"
                     onChange={(e) => dispatch(setFilter(e.target.value))}
-                    defaultValue="A-Z"
+                    defaultValue="Mais-recentes"
                   >
                     <option value="A-Z">A-Z</option>
                     <option value="Z-A">Z-A</option>

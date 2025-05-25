@@ -1,27 +1,38 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const API_URL =
-  'https://portifolio-backend-production.up.railway.app/api/tasks';
+// const API_URL =
+//   'https://portifolio-backend-production.up.railway.app/api/tasks';
+
+const API_URL = 'http://localhost:3001/api/tasks';
 
 export const getTasks = createAsyncThunk('tasks/getTasks', async () => {
   const res = await axios.get(API_URL);
   return res.data.taskList;
 });
 
-export const createTask = createAsyncThunk(
-  'tasks/createTask',
-  async (newTask) => {
-    const res = await axios.post(API_URL, newTask);
-    return res.data.newTask;
-  }
-);
+export const createTask = createAsyncThunk('tasks/createTask', async (task) => {
+  const newTask = {
+    ...task,
+    createdAt: new Date().toISOString(),
+    lastUpdate: new Date().toISOString(),
+  };
+
+  const res = await axios.post(API_URL, newTask);
+  return res.data.newTask;
+});
 
 export const updateTask = createAsyncThunk(
   'tasks/updateTask',
   async ({ id, updatedData }) => {
-    await axios.put(`${API_URL}/${id}`, updatedData);
-    return { ...updatedData, _id: id };
+    const newUpdatedData = {
+      ...updatedData,
+      lastUpdate: new Date().toISOString(),
+      _id: id,
+    };
+
+    await axios.put(`${API_URL}/${id}`, newUpdatedData);
+    return newUpdatedData;
   }
 );
 
@@ -45,7 +56,7 @@ const tasksSlice = createSlice({
     status: 'idle',
     error: null,
     search: '',
-    filter: 'A-Z',
+    filter: 'Mais-recentes',
     selectingStats: false,
     selectedTasks: [],
   },

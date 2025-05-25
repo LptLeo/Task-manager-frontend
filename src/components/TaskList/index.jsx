@@ -30,11 +30,11 @@ const TaskList = () => {
       case 'Mais-recentes':
         return tasksData
           .filter((task) => task.title.toLowerCase().includes(search))
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          .sort((a, b) => new Date(b.lastUpdate) - new Date(a.lastUpdate));
       case 'Menos-recentes':
         return tasksData
           .filter((task) => task.title.toLowerCase().includes(search))
-          .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+          .sort((a, b) => new Date(a.lastUpdate) - new Date(b.lastUpdate));
       default:
         return tasksData
           .filter((task) =>
@@ -54,9 +54,27 @@ const TaskList = () => {
       ) : (
         handleFilterTasks().map((task) => (
           <div key={task._id} className="task-container d-flex">
-            <div className="task rounded-start-2 bg-light w-100">
+            <div className="task d-flex flex-column rounded-start-2 bg-light w-100">
               <h4>{task.title}</h4>
-              <span>{task.description}</span>
+              <span className="task-description">{task.description}</span>
+              <div className="task-date d-flex justify-content-between">
+                <span className="task-date-created">
+                  Criado em:{' '}
+                  {task.createdAt &&
+                    new Date(task.createdAt).toLocaleString('pt-BR', {
+                      dateStyle: 'short',
+                      timeStyle: 'short',
+                    })}
+                </span>
+                <span className="task-date-last-update">
+                  Última atualização:{' '}
+                  {task.lastUpdate &&
+                    new Date(task.lastUpdate).toLocaleString('pt-BR', {
+                      dateStyle: 'short',
+                      timeStyle: 'short',
+                    })}
+                </span>
+              </div>
             </div>
             <div className="d-flex flex-column">
               {selecting ? (

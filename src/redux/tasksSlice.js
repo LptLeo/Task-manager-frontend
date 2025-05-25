@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// const API_URL =
-//   'https://portifolio-backend-production.up.railway.app/api/tasks';
+const API_URL =
+  'https://portifolio-backend-production.up.railway.app/api/tasks';
 
-const API_URL = 'http://localhost:3001/api/tasks';
+// const API_URL = 'http://localhost:3001/api/tasks';
 
 export const getTasks = createAsyncThunk('tasks/getTasks', async () => {
   const res = await axios.get(API_URL);
